@@ -18,3 +18,6 @@ The project derives it's external configuration from the [config server](/../../
 A Spring Cloud application operates by creating a "bootstrap" context, which is a parent context for the main application. This bootstrap context loads properties from external sources (the config-server) and decrypts the properties if required. 
 
 The bootstrap context for external configuration is located by convention at `bootstrap.yml` whereas the internal configuration is located by convention at `application.yml`. Note that you can also have `.properties` file instead of `.yml` files.
+
+## Endpoints
+Documentation regarding endpoints can be found in localhost:8081/swagger-ui.html
