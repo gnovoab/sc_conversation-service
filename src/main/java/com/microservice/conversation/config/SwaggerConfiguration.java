@@ -57,8 +57,10 @@ public class SwaggerConfiguration {
         return new ApiInfoBuilder()
                 .title("Conversation Service API")
                 .description("This page documents the API for conversation project.")
-                .contact(new Contact("Gabriel Novoa Bonet", "", ""))
+                .contact(new Contact("Gabriel Novoa Bonet", "https://gnovoa.com/", "info@gnovoa.com"))
                 .build();
+
+
     }
 
 }

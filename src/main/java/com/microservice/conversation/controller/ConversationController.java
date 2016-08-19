@@ -9,11 +9,14 @@ import com.microservice.conversation.domain.message.SuccessMessage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 
 /**
@@ -24,6 +27,8 @@ import javax.validation.Valid;
 @RequestMapping("/rest/v1/bot/{botId}/conversation")
 public class ConversationController {
 
+    @Autowired
+    private Environment environment;
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiResponses(value = {
@@ -33,6 +38,13 @@ public class ConversationController {
     })
     public ResponseEntity<Message> saveConversation(@PathVariable("botId") String botId,
                                                     @RequestBody @Valid Conversation conversation) {
+
+
+        String[] a = this.environment.getActiveProfiles();
+        for (String b: a) {
+            System.out.println("-----> ["+b+"]");
+        }
+
 
         //Create message
         Message message = new SuccessMessage(HttpStatus.CREATED, "conversation saved successfully");
