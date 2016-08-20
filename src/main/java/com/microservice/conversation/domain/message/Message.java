@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 /**
  * Class that represents the response message
  */
-public abstract class Message {
+public class Message {
     /** The status. */
     protected HttpStatus status;
 
