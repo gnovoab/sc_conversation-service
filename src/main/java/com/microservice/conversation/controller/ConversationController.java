@@ -14,6 +14,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -25,6 +26,7 @@ import javax.validation.Valid;
 @Api(description = "Endpoint for bot conversation")
 @RestController
 @RequestMapping("/rest/v1/bot/{botId}/conversation")
+@Validated
 public class ConversationController {
 
     @Autowired
