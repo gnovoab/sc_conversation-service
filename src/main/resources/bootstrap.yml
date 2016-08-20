@@ -13,6 +13,18 @@ spring:
 ---
 
 spring:
+  profiles: local
+  cloud:
+     config:
+        enabled: false
+eureka:
+  client:
+    enabled: false
+
+
+---
+
+spring:
   profiles: docker
   cloud:
      config:

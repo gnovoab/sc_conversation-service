@@ -1,7 +1,0 @@
-spring:
-  cloud:
-    config:
-      enabled: false
-eureka:
-  client:
-    enabled: false # Don't try reaching a configuration server
