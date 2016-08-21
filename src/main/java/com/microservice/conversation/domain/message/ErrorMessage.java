@@ -5,6 +5,7 @@ package com.microservice.conversation.domain.message;
 
 //Imports
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.springframework.http.HttpStatus;
 
 import java.util.List;
 
@@ -22,8 +23,10 @@ public class ErrorMessage extends Message{
 
 	/**
 	 * Instantiates a new error message.
-	 */
-	public ErrorMessage(){}
+     * @param created
+     * @param message
+     */
+	public ErrorMessage(HttpStatus created, String message){}
 
 
 	//Getters and Setters
