@@ -21,12 +21,18 @@ public class ErrorMessage extends Message{
 	private String moreInfo;
 
 
-	/**
-	 * Instantiates a new error message.
-     * @param created
+    public ErrorMessage(){}
+
+    /**
+     * Constructor
+     * @param status
      * @param message
      */
-	public ErrorMessage(HttpStatus created, String message){}
+    public ErrorMessage(HttpStatus status, String message) {
+        super();
+        this.status = status;
+        this.message = message;
+    }
 
 
 	//Getters and Setters

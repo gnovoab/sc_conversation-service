@@ -40,12 +40,12 @@ public class RestExceptionHandler {
      * @param e
      * @return
      */
-    @ExceptionHandler(value = {DatabaseException.class})
+    @ExceptionHandler(value = {ResourceNotFoundException.class})
     public ResponseEntity<Message> handleResourceNotFoundException(ResourceNotFoundException e, WebRequest request) {
-        //Create message
         Message message = new ErrorMessage(HttpStatus.NOT_FOUND, e.getMessage());
 
         //Return message
         return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+
     }
 }
