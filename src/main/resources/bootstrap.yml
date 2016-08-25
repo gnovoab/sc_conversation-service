@@ -13,7 +13,7 @@ spring:
 ---
 
 spring:
-  profiles: local
+  profiles: default, local
   cloud:
      config:
         enabled: false
