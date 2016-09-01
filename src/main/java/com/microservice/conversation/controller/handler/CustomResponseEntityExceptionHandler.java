@@ -3,7 +3,7 @@ package com.microservice.conversation.controller.handler;
 
 //Imports
 
-import com.microservice.conversation.domain.message.ErrorMessage;
+import com.microservice.conversation.domain.ApiMessageResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -42,12 +42,11 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
             error = objectError.getObjectName() + ", " + objectError.getDefaultMessage();
             errors.add(error);
         }
-        ErrorMessage errorMessage = new ErrorMessage();
-        errorMessage.setMessage("Invalid Payload");
-        errorMessage.setStatus(HttpStatus.BAD_REQUEST);
-        errorMessage.setFieldErrors(errors);
 
-        return new ResponseEntity<>(errorMessage, headers, HttpStatus.BAD_REQUEST);
+        ApiMessageResponse apiResponse = new ApiMessageResponse(HttpStatus.BAD_REQUEST, "Invalid Payload");
+        apiResponse.setFieldErrors(errors);
+
+        return new ResponseEntity<>(apiResponse, headers, HttpStatus.BAD_REQUEST);
     }
 
     @Override
@@ -55,24 +54,22 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
                                                                      HttpStatus status, WebRequest request) {
         String unsupported = "Unsupported content type: " + ex.getContentType();
         String supported = "Supported content types: " + MediaType.toString(ex.getSupportedMediaTypes());
-        ErrorMessage errorMessage = new ErrorMessage();
-        errorMessage.setMessage(unsupported + ".\n" + supported);
-        return new ResponseEntity<>(errorMessage, headers, status);
+
+        ApiMessageResponse apiResponse = new ApiMessageResponse(status, unsupported + ".\n" + supported);
+        return new ResponseEntity<>(apiResponse, headers, status);
     }
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers,
                                                                   HttpStatus status, WebRequest request) {
         Throwable mostSpecificCause = ex.getMostSpecificCause();
-        ErrorMessage errorMessage = new ErrorMessage();
+        ApiMessageResponse apiResponse = new ApiMessageResponse(status, ex.getMessage());
         if (mostSpecificCause != null) {
-            errorMessage.setMessage(mostSpecificCause.getMessage());
-            errorMessage.setMoreInfo("Exception name: " + mostSpecificCause.getClass().getName());
+            apiResponse.setMessage(mostSpecificCause.getMessage());
+            apiResponse.setMoreInfo("Exception name: " + mostSpecificCause.getClass().getName());
 
-        } else {
-            errorMessage.setMessage(ex.getMessage());
         }
-        return new ResponseEntity<>(errorMessage, headers, status);
+        return new ResponseEntity<>(apiResponse, headers, status);
     }
 
 }

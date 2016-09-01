@@ -3,13 +3,13 @@ package com.microservice.conversation.controller.handler;
 
 //Imports
 
-import com.microservice.conversation.domain.message.ErrorMessage;
-import com.microservice.conversation.domain.message.Message;
+import com.microservice.conversation.domain.ApiMessageResponse;
 import com.microservice.conversation.exception.DatabaseException;
 import com.microservice.conversation.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
 /**
@@ -25,12 +25,12 @@ public class RestExceptionHandler {
      * @return
      */
     @ExceptionHandler(value = {DatabaseException.class})
-    public ResponseEntity<Message> handleDatabaseException(DatabaseException e, WebRequest request) {
+    public ResponseEntity<ApiMessageResponse> handleDatabaseException(DatabaseException e, WebRequest request) {
         //Create message
-        Message message = new ErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        ApiMessageResponse apiResponse = new ApiMessageResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 
         //Return message
-        return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(apiResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 
@@ -41,11 +41,11 @@ public class RestExceptionHandler {
      * @return
      */
     @ExceptionHandler(value = {ResourceNotFoundException.class})
-    public ResponseEntity<Message> handleResourceNotFoundException(ResourceNotFoundException e, WebRequest request) {
-        Message message = new ErrorMessage(HttpStatus.NOT_FOUND, e.getMessage());
+    public ResponseEntity<ApiMessageResponse> handleResourceNotFoundException(ResourceNotFoundException e, WebRequest request) {
+        ApiMessageResponse apiResponse = new ApiMessageResponse(HttpStatus.NOT_FOUND, e.getMessage());
 
         //Return message
-        return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(apiResponse, HttpStatus.NOT_FOUND);
 
     }
 }

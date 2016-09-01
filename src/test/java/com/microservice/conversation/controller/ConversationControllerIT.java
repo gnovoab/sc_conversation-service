@@ -3,26 +3,22 @@
 package com.microservice.conversation.controller;
 
 //Imports
+
+import com.microservice.conversation.domain.ApiMessageResponse;
 import com.microservice.conversation.domain.Conversation;
-import com.microservice.conversation.domain.message.Message;
 import com.microservice.conversation.factory.ConversationFactory;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.IntegrationTest;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-//import org.springframework.boot.test.TestRestTemplate;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 
-
 import javax.annotation.Resource;
+
+//import org.springframework.boot.test.TestRestTemplate;
 
 
 /**
@@ -57,7 +53,7 @@ public class ConversationControllerIT {
         HttpEntity<?> request = new HttpEntity<>(conversation ,requestHeaders);
 
         //Invoke the API service
-        ResponseEntity<Message> response = restTemplate.exchange(baseUrl+"/"+conversation.getBotId()+"/conversation", HttpMethod.POST, request, Message.class);
+        ResponseEntity<ApiMessageResponse> response = restTemplate.exchange(baseUrl+"/"+conversation.getBotId()+"/conversation", HttpMethod.POST, request, ApiMessageResponse.class);
 
         //Verify
         Assert.assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -84,7 +80,7 @@ public class ConversationControllerIT {
         HttpEntity<?> request = new HttpEntity<>(conversation ,requestHeaders);
 
         //Invoke the API service
-        ResponseEntity<Message> response = restTemplate.exchange(baseUrl+"/"+conversation.getBotId()+"/conversation", HttpMethod.POST, request, Message.class);
+        ResponseEntity<ApiMessageResponse> response = restTemplate.exchange(baseUrl+"/"+conversation.getBotId()+"/conversation", HttpMethod.POST, request, ApiMessageResponse.class);
 
         //Verify
         Assert.assertEquals(HttpStatus.BAD_REQUEST , response.getStatusCode());

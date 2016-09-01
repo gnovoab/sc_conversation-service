@@ -20,4 +20,4 @@ A Spring Cloud application operates by creating a "bootstrap" context, which is 
 The bootstrap context for external configuration is located by convention at `bootstrap.yml` whereas the internal configuration is located by convention at `application.yml`. Note that you can also have `.properties` file instead of `.yml` files.
 
 ## Endpoints
-Documentation regarding endpoints can be found in localhost:8081/swagger-ui.html
+Documentation regarding endpoints can be found in localhost:80810/swagger-ui.html
